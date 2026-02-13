@@ -3,112 +3,186 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Infinity Love | Isha & Morsi</title>
-    <link href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@700&family=Pacifico&family=Quicksand:wght@300;500&display=swap" rel="stylesheet">
+    <title>Royal Love | Isha & Morsi</title>
+    <link href="https://fonts.googleapis.com/css2?family=Cinzel+Decorative:wght@700&family=Great+Vibes&family=Montserrat:wght@300;500&display=swap" rel="stylesheet">
     
     <style>
+        :root {
+            --gold: #d4af37;
+            --gold-gradient: linear-gradient(to right, #bf953f, #fcf6ba, #b38728, #fbf5b7);
+            --deep-red: #3a0000;
+            --glass-bg: rgba(58, 0, 0, 0.3);
+            --glass-border: 1px solid rgba(212, 175, 55, 0.4);
+        }
+
         * { margin: 0; padding: 0; box-sizing: border-box; user-select: none; }
         
         body {
             overflow: hidden;
             width: 100vw; height: 100vh;
-            font-family: 'Quicksand', sans-serif;
+            font-family: 'Montserrat', sans-serif;
+            background: radial-gradient(circle at center, #7c0a0a, var(--deep-red));
             color: white;
-            background: linear-gradient(-45deg, #ff4e50, #f9d423, #e73c7e, #23a6d5);
-            background-size: 400% 400%;
-            animation: gradientBG 15s ease infinite;
+            position: relative;
         }
 
-        @keyframes gradientBG {
-            0% { background-position: 0% 50%; }
-            50% { background-position: 100% 50%; }
-            100% { background-position: 0% 50%; }
+        /* تأثير الغبار الذهبي في الخلفية */
+        .gold-dust {
+            position: absolute;
+            width: 2px; height: 2px;
+            background: var(--gold);
+            border-radius: 50%;
+            box-shadow: 0 0 10px var(--gold), 0 0 20px var(--gold);
+            animation: floatDust linear infinite;
+            opacity: 0;
+            z-index: 0;
         }
 
-        /* 1. غطاء الهدية */
+        @keyframes floatDust {
+            0% { transform: translateY(0) rotate(0deg); opacity: 0; }
+            50% { opacity: 1; }
+            100% { transform: translateY(-100vh) rotate(360deg); opacity: 0; }
+        }
+
+        /* تنسيق النصوص الذهبية الفاخرة */
+        .gold-text {
+            background: var(--gold-gradient);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            text-shadow: 0 2px 10px rgba(0,0,0,0.3);
+            font-weight: 700;
+        }
+
+        /* أزرار التحكم في الصوت الفاخرة */
+        .sound-toggle {
+            position: fixed; top: 25px; right: 25px; z-index: 6000;
+            background: rgba(0, 0, 0, 0.5);
+            backdrop-filter: blur(10px);
+            border: var(--glass-border);
+            width: 50px; height: 50px;
+            border-radius: 50%;
+            cursor: pointer; display: flex; justify-content: center; align-items: center;
+            font-size: 1.5rem; color: var(--gold);
+            box-shadow: 0 0 20px rgba(212, 175, 55, 0.2);
+            transition: 0.4s;
+        }
+        .sound-toggle:hover { transform: scale(1.1); box-shadow: 0 0 30px rgba(212, 175, 55, 0.5); }
+
+        /* غطاء الهدية الملكي */
         #giftOverlay {
             position: fixed; top: 0; left: 0; width: 100%; height: 100%;
-            background: rgba(0,0,0,0.95);
+            background: radial-gradient(circle, rgba(60,0,0,0.95), #000);
             display: flex; flex-direction: column; justify-content: center; align-items: center;
-            z-index: 3000; transition: 1s; cursor: pointer;
+            z-index: 3000; transition: 1s cubic-bezier(0.77, 0, 0.175, 1); cursor: pointer;
         }
 
-        /* 2. واجهة خطاب الحب (الرسالة الجديدة) */
-        #letterOverlay {
+        .gift-container {
+            font-size: 9rem;
+            filter: drop-shadow(0 0 30px var(--gold));
+            animation: elegantPulse 2s infinite ease-in-out;
+        }
+        @keyframes elegantPulse {
+            0%, 100% { transform: scale(1); filter: drop-shadow(0 0 30px var(--gold)); }
+            50% { transform: scale(1.05); filter: drop-shadow(0 0 50px var(--gold)); }
+        }
+
+        /* الواجهات المنبثقة (الزجاجية) */
+        .overlay-container {
             position: fixed; top: 0; left: 0; width: 100%; height: 100%;
-            background: rgba(0,0,0,0.8);
+            background: rgba(0,0,0,0.85); backdrop-filter: blur(15px);
             display: none; justify-content: center; align-items: center;
             z-index: 5000; padding: 20px;
         }
 
+        /* تصميم ورقة الرسالة الفاخرة */
         .paper {
-            background: #fff0f3;
-            color: #d63384;
-            padding: 30px;
-            border-radius: 10px;
-            max-width: 500px;
-            width: 90%;
-            max-height: 80vh;
-            overflow-y: auto;
-            box-shadow: 0 10px 30px rgba(0,0,0,0.5);
-            font-family: 'Dancing Script', cursive;
-            line-height: 1.6;
-            transform: scale(0);
-            transition: 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            background: linear-gradient(to bottom right, #fffaf0, #fceabb);
+            color: #4a0e0e;
+            padding: 40px;
+            border-radius: 15px;
+            max-width: 600px; width: 90%; max-height: 80vh; overflow-y: auto;
+            box-shadow: 0 20px 50px rgba(0,0,0,0.5), inset 0 0 60px rgba(212, 175, 55, 0.1);
+            border: 3px solid transparent;
+            border-image: var(--gold-gradient) 1;
+            font-family: 'Great Vibes', cursive;
+            line-height: 1.8;
+            transform: translateY(50px) scale(0.9); opacity: 0;
+            transition: 0.6s cubic-bezier(0.34, 1.56, 0.64, 1);
+            position: relative;
+        }
+        .paper::before { /* تأثير ختم شمعي */
+            content: '❤️'; position: absolute; bottom: 20px; right: 30px; font-size: 3rem; opacity: 0.2;
         }
 
-        .paper.active { transform: scale(1); }
+        .paper.active { transform: translateY(0) scale(1); opacity: 1; }
 
-        /* 3. واجهة الكلام الإيماني */
-        #faithOverlay {
-            position: fixed; top: 0; left: 0; width: 100%; height: 100%;
-            background: rgba(0, 0, 0, 0.9);
-            backdrop-filter: blur(10px);
-            display: none; flex-direction: column; justify-content: center; align-items: center;
-            z-index: 4000; padding: 30px; text-align: center;
-        }
-
-        /* 4. المحتوى الرئيسي */
+        /* المحتوى الرئيسي الفاخر */
         .content-wrapper {
-            position: absolute; top: 35%; left: 50%; transform: translate(-50%, -50%);
+            position: absolute; top: 38%; left: 50%; transform: translate(-50%, -50%);
             text-align: center; z-index: 10; width: 90%; display: none;
         }
 
-        .btn-group { display: flex; gap: 10px; justify-content: center; margin-top: 20px; }
-        
-        button {
-            padding: 12px 20px; border: none; border-radius: 50px;
-            font-weight: bold; cursor: pointer; font-family: 'Quicksand';
-            transition: 0.3s;
+        h1 {
+            font-family: 'Cinzel Decorative', cursive;
+            font-size: clamp(3.5rem, 12vw, 6rem);
+            margin-bottom: 10px;
         }
 
-        .faith-btn { background: #fff; color: #ff0055; box-shadow: 0 0 15px rgba(255,255,255,0.4); }
-        .letter-btn { background: #ff0055; color: #fff; box-shadow: 0 0 15px rgba(255,0,85,0.4); }
+        .message-box {
+            font-size: 1.8rem; margin: 25px auto; min-height: 90px;
+            font-family: 'Great Vibes', cursive;
+            color: #ffdddd;
+            text-shadow: 0 2px 5px rgba(0,0,0,0.5);
+        }
+
+        .btn-group { display: flex; gap: 20px; justify-content: center; margin-top: 30px; flex-wrap: wrap; }
+        
+        .luxury-btn {
+            padding: 15px 35px; border: var(--glass-border); border-radius: 50px;
+            font-weight: 500; cursor: pointer; font-family: 'Montserrat';
+            background: var(--glass-bg); color: var(--gold);
+            backdrop-filter: blur(10px);
+            box-shadow: 0 10px 30px rgba(0,0,0,0.2);
+            transition: 0.4s; letter-spacing: 1px;
+            font-size: 1.1rem;
+        }
+        .luxury-btn:hover {
+            background: var(--gold-gradient); color: #3a0000;
+            box-shadow: 0 0 40px var(--gold); transform: translateY(-3px);
+            border-color: transparent;
+        }
 
         .video-container {
-            position: absolute; bottom: 30px; width: 100%; display: flex; justify-content: center; z-index: 5; display: none;
+            position: absolute; bottom: 40px; width: 100%; display: flex; justify-content: center; z-index: 5; display: none;
         }
 
-        .cat-video { width: 180px; height: 180px; object-fit: cover; border-radius: 50%; border: 5px solid white; }
-
-        .heart { position: absolute; animation: move linear infinite; z-index: 1; }
-        @keyframes move {
-            0% { transform: translateY(0) rotate(0deg); opacity: 1; }
-            100% { transform: translateY(-110vh) rotate(360deg); opacity: 0; }
+        .cat-video {
+            width: 200px; height: 200px; object-fit: cover; border-radius: 50%;
+            border: 6px solid;
+            border-image: var(--gold-gradient) 1;
+            box-shadow: 0 0 60px rgba(255, 0, 85, 0.6);
         }
+
+        /* عناصر عائمة فاخرة */
+        .floating-element { position: absolute; pointer-events: none; z-index: 1; }
     </style>
 </head>
 <body>
 
+    <div id="goldDustContainer"></div>
+
+    <div id="mainMuteBtn" class="sound-toggle" onclick="toggleMainSound()" style="display: none;">🔊</div>
+    <div id="faithMuteBtn" class="sound-toggle" onclick="toggleFaithSound()" style="display: none;">🔊</div>
+
     <div id="giftOverlay" onclick="openGift()">
-        <div style="font-size: 8rem; animation: pulse 1s infinite;">🎁</div>
-        <div style="font-family: 'Dancing Script'; color: white; font-size: 2rem; margin-top:20px;">For my Isha...</div>
+        <div class="gift-container">🎁</div>
+        <div class="gold-text" style="font-family: 'Cinzel Decorative'; font-size: 2.2rem; margin-top:30px; letter-spacing: 2px;">A Royal Gift for Isha</div>
     </div>
 
-    <div id="letterOverlay" onclick="closeLetter()">
+    <div id="letterOverlay" class="overlay-container" onclick="closeLetter()">
         <div class="paper" id="paperContent">
-            <h2 style="text-align: center; margin-bottom: 20px; font-size: 2.2rem;">My Dearest Isha... ❤️</h2>
-            <p style="font-size: 1.4rem; text-align: center;">
+            <h2 class="gold-text" style="text-align: center; margin-bottom: 30px; font-size: 3rem; font-family: 'Cinzel Decorative';">My Queen, Isha ❤️</h2>
+            <p style="font-size: 1.6rem; text-align: center;">
                 Every moment I think of you, my heart feels like it's soaring. <br><br>
                 Your smile, your laugh, your presence… they make my world brighter than the sun.<br><br>
                 No distance, no time, and no challenge could ever change how much I love you.<br><br>
@@ -116,23 +190,21 @@
                 With every beat of my heart, I choose you again and again.<br><br>
                 Thank you for being my everything, for your love, your care, and for always being there for me.<br><br>
                 My love, my soulmate, my Isha.<br><br>
-                <strong>— Always Yours, Morsi</strong>
+                <strong class="gold-text" style="font-size: 1.8rem;">— Always Yours, Morsi</strong>
             </p>
-            <p style="text-align: center; font-size: 0.9rem; margin-top: 20px; color: #ff8fa3;">(Tap anywhere to close)</p>
         </div>
     </div>
 
-    <div id="faithOverlay" onclick="closeFaith()">
-        <div id="faithText" style="color: #f1f1f1; font-size: 1.3rem; line-height: 1.7; max-width: 600px;"></div>
+    <div id="faithOverlay" class="overlay-container" onclick="closeFaith()">
+        <div id="faithText" style="color: #f1f1f1; font-size: 1.5rem; line-height: 1.8; max-width: 700px; text-align: center; font-family: 'Montserrat';"></div>
     </div>
 
     <div class="content-wrapper" id="mainContent">
-        <h1 style="font-family: 'Pacifico'; font-size: 4rem;">Isha 💖</h1>
-        <div id="messageBox" style="font-size: 1.5rem; margin-top: 10px; min-height: 80px;">Happy Valentine's Day!</div>
-        
+        <h1 class="gold-text">Isha 💖</h1>
+        <div id="messageBox" class="message-box">Happy Valentine's Day, My Love!</div>
         <div class="btn-group">
-            <button class="faith-btn" onclick="openFaith(event)">Trust Allah ✨</button>
-            <button class="letter-btn" onclick="openLetter(event)">Read My Heart ❤️</button>
+            <button class="luxury-btn" onclick="openFaith(event)">Trust Allah ✨</button>
+            <button class="luxury-btn" onclick="openLetter(event)">Read My Heart ❤️</button>
         </div>
     </div>
 
@@ -146,42 +218,68 @@
     <audio id="faithMusic" loop><source src="faith_music.mp3" type="audio/mpeg"></audio>
 
     <script>
-        const messages = [
-            {en: "You are my peace...", bn: "তুমি আমার শান্তি"},
-            {en: "Forever and always...", bn: "চিরকাল এবং সর্বদা"},
-            {en: "My soulmate Isha...", bn: "আমার জীবনসঙ্গী ইশা"}
-        ];
+        // --- إعدادات الفخامة ---
+        function createGoldDust() {
+            const container = document.getElementById('goldDustContainer');
+            for (let i = 0; i < 50; i++) {
+                const dust = document.createElement('div');
+                dust.className = 'gold-dust';
+                dust.style.left = Math.random() * 100 + 'vw';
+                dust.style.top = Math.random() * 100 + 'vh';
+                dust.style.animationDuration = (Math.random() * 10 + 5) + 's';
+                dust.style.animationDelay = Math.random() * 5 + 's';
+                container.appendChild(dust);
+            }
+        }
+        createGoldDust();
 
-        const faithParagraph = `Trust in Allah. Do you trust him? \n\nWhatever happens in life, you know I have a Lord who cares for me. Allah says, we rotate the days. One day you'll be up, one day you'll be down. But His mercy is forever.`;
-
-        let msgIndex = 0;
+        // --- المنطق الأساسي ---
         const mainMusic = document.getElementById('mainMusic');
         const faithMusic = document.getElementById('faithMusic');
         const video = document.getElementById('myVideo');
+        const mainMuteBtn = document.getElementById('mainMuteBtn');
+        const faithMuteBtn = document.getElementById('faithMuteBtn');
 
         function openGift() {
             document.getElementById('giftOverlay').style.opacity = '0';
+            document.getElementById('giftOverlay').style.transform = 'scale(1.2)';
             setTimeout(() => {
                 document.getElementById('giftOverlay').style.display = 'none';
                 document.getElementById('mainContent').style.display = 'block';
                 document.getElementById('videoBox').style.display = 'flex';
+                mainMuteBtn.style.display = 'flex';
                 mainMusic.volume = 1.0; mainMusic.play();
                 video.play();
-                startMagic();
-            }, 800);
+                startLuxuryMagic();
+            }, 1000);
         }
 
-        function startMagic() {
-            setInterval(() => {
-                const msgBox = document.getElementById('messageBox');
-                msgBox.style.opacity = '0';
-                setTimeout(() => {
-                    msgBox.innerHTML = `${messages[msgIndex].en} <br><span style="color:#fffb00; font-size:1.6rem;">${messages[msgIndex].bn}</span>`;
-                    msgBox.style.opacity = '1';
-                    msgIndex = (msgIndex + 1) % messages.length;
-                }, 500);
-            }, 4000);
-            setInterval(spawnHeart, 300);
+        function toggleMainSound() {
+            mainMusic.muted = !mainMusic.muted;
+            mainMuteBtn.innerText = mainMusic.muted ? "🔇" : "🔊";
+        }
+
+        function toggleFaithSound() {
+            faithMusic.muted = !faithMusic.muted;
+            faithMuteBtn.innerText = faithMusic.muted ? "🔇" : "🔊";
+        }
+
+        function openFaith(e) {
+            e.stopPropagation();
+            mainMusic.pause();
+            mainMuteBtn.style.display = 'none';
+            faithMuteBtn.style.display = 'flex';
+            faithMusic.play();
+            document.getElementById('faithOverlay').style.display = 'flex';
+            typeWriter("Trust in Allah. Do you trust him? \n\nWhatever happens in life, you know I have a Lord who cares for me. Allah says, we rotate the days. One day you'll be up, one day you'll be down. But His mercy is forever.", document.getElementById('faithText'), 50);
+        }
+
+        function closeFaith() {
+            faithMusic.pause();
+            faithMuteBtn.style.display = 'none';
+            mainMuteBtn.style.display = 'flex';
+            mainMusic.play();
+            document.getElementById('faithOverlay').style.display = 'none';
         }
 
         function openLetter(e) {
@@ -192,20 +290,7 @@
 
         function closeLetter() {
             document.getElementById('paperContent').classList.remove('active');
-            setTimeout(() => document.getElementById('letterOverlay').style.display = 'none', 500);
-        }
-
-        function openFaith(e) {
-            e.stopPropagation();
-            mainMusic.pause();
-            faithMusic.play();
-            document.getElementById('faithOverlay').style.display = 'flex';
-            typeWriter(faithParagraph, document.getElementById('faithText'), 40);
-        }
-
-        function closeFaith() {
-            faithMusic.pause(); mainMusic.play();
-            document.getElementById('faithOverlay').style.display = 'none';
+            setTimeout(() => document.getElementById('letterOverlay').style.display = 'none', 600);
         }
 
         function typeWriter(text, element, speed) {
@@ -219,16 +304,47 @@
             type();
         }
 
-        function spawnHeart() {
-            const heart = document.createElement('div');
-            heart.className = 'heart';
-            heart.innerHTML = '❤️';
-            heart.style.left = Math.random() * 100 + 'vw';
-            heart.style.bottom = '-50px';
-            heart.style.fontSize = Math.random() * 20 + 20 + 'px';
-            heart.style.animationDuration = Math.random() * 2 + 3 + 's';
-            document.body.appendChild(heart);
-            setTimeout(() => heart.remove(), 5000);
+        // --- رسائل وعناصر عائمة فاخرة ---
+        const messages = [
+            {en: "You are my eternal peace...", bn: "তুমি আমার চিরন্তন শান্তি"},
+            {en: "My Queen, My Everything...", bn: "আমার রানী, আমার সবকিছু"},
+            {en: "Forever bound to Morsi...", bn: "চিরকাল মূর্তির সাথে বাঁধা"}
+        ];
+        let msgIndex = 0;
+
+        function startLuxuryMagic() {
+            setInterval(() => {
+                const msgBox = document.getElementById('messageBox');
+                msgBox.style.opacity = '0';
+                setTimeout(() => {
+                    msgBox.innerHTML = `<span style="font-size:1.4rem">${messages[msgIndex].en}</span><br><span class="gold-text" style="font-size:1.8rem;">${messages[msgIndex].bn}</span>`;
+                    msgBox.style.opacity = '1';
+                    msgIndex = (msgIndex + 1) % messages.length;
+                }, 800);
+            }, 5000);
+            setInterval(spawnLuxuryElement, 400);
+        }
+
+        function spawnLuxuryElement() {
+            const el = document.createElement('div');
+            el.className = 'floating-element';
+            const type = Math.random() > 0.7 ? 'gold' : 'heart';
+            
+            if (type === 'gold') {
+                el.innerHTML = '✨';
+                el.style.color = '#ffd700';
+                el.style.textShadow = '0 0 10px #ffd700';
+            } else {
+                el.innerHTML = ['❤️','🌹','💖'][Math.floor(Math.random()*3)];
+            }
+            
+            el.style.left = Math.random() * 100 + 'vw';
+            el.style.bottom = '-50px';
+            el.style.fontSize = Math.random() * 25 + 15 + 'px';
+            const duration = Math.random() * 5 + 5;
+            el.style.animation = `move ${duration}s linear forwards`;
+            document.body.appendChild(el);
+            setTimeout(() => el.remove(), duration * 1000);
         }
     </script>
 </body>
