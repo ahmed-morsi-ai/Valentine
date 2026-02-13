@@ -1,0 +1,222 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>A Gift for Isha | From Morsi</title>
+    <link href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@700&family=Pacifico&family=Quicksand:wght@300;500&display=swap" rel="stylesheet">
+    
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; user-select: none; }
+        
+        body {
+            overflow: hidden;
+            width: 100vw;
+            height: 100vh;
+            font-family: 'Quicksand', sans-serif;
+            color: white;
+            background: linear-gradient(-45deg, #ff4e50, #f9d423, #e73c7e, #23a6d5);
+            background-size: 400% 400%;
+            animation: gradientBG 15s ease infinite;
+            position: relative;
+        }
+
+        @keyframes gradientBG {
+            0% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+            100% { background-position: 0% 50%; }
+        }
+
+        /* حاوية الهدية */
+        #giftOverlay {
+            position: fixed;
+            top: 0; left: 0; width: 100%; height: 100%;
+            background: rgba(0,0,0,0.9);
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            z-index: 2000;
+            transition: 1s;
+        }
+
+        .gift-box {
+            font-size: 8rem;
+            cursor: pointer;
+            transition: transform 0.3s;
+            animation: wobble 1s infinite;
+        }
+
+        @keyframes wobble {
+            0%, 100% { transform: rotate(-5deg) scale(1); }
+            50% { transform: rotate(5deg) scale(1.1); }
+        }
+
+        .gift-box:hover { transform: scale(1.2); }
+
+        .tap-text {
+            color: white;
+            font-family: 'Dancing Script', cursive;
+            font-size: 2rem;
+            margin-top: 20px;
+        }
+
+        /* المحتوى الرئيسي */
+        .content-wrapper {
+            position: absolute;
+            top: 35%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            text-align: center;
+            z-index: 10;
+            width: 90%;
+            display: none; /* يظهر بعد فتح الهدية */
+        }
+
+        h1 {
+            font-family: 'Pacifico', cursive;
+            font-size: clamp(3rem, 10vw, 5rem);
+            text-shadow: 0 0 20px #ff0055;
+        }
+
+        .love-message {
+            font-size: 1.6rem;
+            margin-top: 20px;
+            min-height: 120px;
+            font-style: italic;
+        }
+
+        .bengali-text {
+            display: block;
+            font-size: 2.2rem;
+            color: #fffb00;
+            margin-top: 15px;
+            font-weight: bold;
+            text-shadow: 0 0 10px rgba(0,0,0,0.3);
+        }
+
+        .video-container {
+            position: absolute;
+            bottom: 30px;
+            width: 100%;
+            display: flex;
+            justify-content: center;
+            z-index: 5;
+            display: none;
+        }
+
+        .cat-video {
+            width: 220px;
+            height: 220px;
+            object-fit: cover;
+            border-radius: 50%;
+            border: 6px solid white;
+            box-shadow: 0 0 40px #ff0055;
+        }
+
+        .heart {
+            position: absolute;
+            animation: move linear infinite;
+            z-index: 1;
+        }
+
+        @keyframes move {
+            0% { transform: translateY(0) rotate(0deg); opacity: 1; }
+            100% { transform: translateY(-110vh) rotate(360deg); opacity: 0; }
+        }
+    </style>
+</head>
+<body>
+
+    <div id="giftOverlay" onclick="openGift()">
+        <div class="gift-box">🎁</div>
+        <div class="tap-text">Isha, click to open your gift...</div>
+    </div>
+
+    <div class="content-wrapper" id="mainContent">
+        <h1>Isha 💖</h1>
+        <h2 style="font-family: 'Dancing Script'; font-size: 2.2rem; color: #fff;">Happy Valentine's Day!</h2>
+        <div id="messageBox" class="love-message">
+            Waiting for you to read my heart...
+        </div>
+    </div>
+
+    <div class="video-container" id="videoBox">
+        <video id="myVideo" class="cat-video" loop playsinline muted>
+            <source src="cats_kissing.mp4" type="video/mp4">
+        </video>
+    </div>
+
+    <audio id="myAudio" loop>
+        <source src="love_song.mp3" type="audio/mpeg">
+    </audio>
+
+    <script>
+        const messages = [
+            {en: "Happy Valentine's Day, my love!", bn: "শুভ ভালোবাসা দিবস, প্রিয়!"},
+            {en: "I love you more than words can say...", bn: "আমি তোমাকে অনেক ভালোবাসি"},
+            {en: "You are the light of my life...", bn: "তুমি আমার জীবনের আলো"},
+            {en: "Forever and always, just you and me...", bn: "চিরকাল শুধু তুমি আর আমি"},
+            {en: "Your smile is my paradise...", bn: "তোমার হাসি আমার স্বর্গ"}
+        ];
+
+        let index = 0;
+        const audio = document.getElementById('myAudio');
+        const video = document.getElementById('myVideo');
+
+        function openGift() {
+            // تأثير فتح الهدية
+            document.getElementById('giftOverlay').style.opacity = '0';
+            setTimeout(() => {
+                document.getElementById('giftOverlay').style.display = 'none';
+                document.getElementById('mainContent').style.display = 'block';
+                document.getElementById('videoBox').style.display = 'flex';
+                
+                // تشغيل الأغنية بأقصى صوت
+                audio.volume = 1.0;
+                audio.play();
+                
+                // تشغيل الفيديو صامتاً
+                video.play();
+                
+                startMagic();
+            }, 800);
+        }
+
+        function startMagic() {
+            updateMessage();
+            setInterval(updateMessage, 5000);
+            setInterval(spawnHeart, 300);
+        }
+
+        function updateMessage() {
+            const msgBox = document.getElementById('messageBox');
+            msgBox.style.opacity = '0';
+            
+            setTimeout(() => {
+                const current = messages[index];
+                msgBox.innerHTML = `${current.en} <span class="bengali-text">${current.bn}</span>`;
+                msgBox.style.opacity = '1';
+                index = (index + 1) % messages.length;
+                burstHearts();
+            }, 500);
+        }
+
+        function spawnHeart() {
+            const heart = document.createElement('div');
+            heart.className = 'heart';
+            heart.innerHTML = ['❤️','💖','✨','🌹','🌸'][Math.floor(Math.random()*5)];
+            heart.style.left = Math.random() * 100 + 'vw';
+            heart.style.bottom = '-50px';
+            heart.style.fontSize = Math.random() * 20 + 20 + 'px';
+            heart.style.animationDuration = Math.random() * 2 + 3 + 's';
+            document.body.appendChild(heart);
+            setTimeout(() => heart.remove(), 5000);
+        }
+
+        function burstHearts() {
+            for(let i=0; i<8; i++) spawnHeart();
+        }
+    </script>
+</body>
+</html>
