@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>A Gift for Isha | From Morsi</title>
+    <title>For Isha | Faith & Love</title>
     <link href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@700&family=Pacifico&family=Quicksand:wght@300;500&display=swap" rel="stylesheet">
     
     <style>
@@ -11,14 +11,12 @@
         
         body {
             overflow: hidden;
-            width: 100vw;
-            height: 100vh;
+            width: 100vw; height: 100vh;
             font-family: 'Quicksand', sans-serif;
             color: white;
             background: linear-gradient(-45deg, #ff4e50, #f9d423, #e73c7e, #23a6d5);
             background-size: 400% 400%;
             animation: gradientBG 15s ease infinite;
-            position: relative;
         }
 
         @keyframes gradientBG {
@@ -27,99 +25,69 @@
             100% { background-position: 0% 50%; }
         }
 
-        /* حاوية الهدية */
+        /* 1. غطاء الهدية */
         #giftOverlay {
             position: fixed;
             top: 0; left: 0; width: 100%; height: 100%;
-            background: rgba(0,0,0,0.9);
-            display: flex;
-            flex-direction: column;
-            justify-content: center;
-            align-items: center;
-            z-index: 2000;
-            transition: 1s;
+            background: rgba(0,0,0,0.95);
+            display: flex; flex-direction: column; justify-content: center; align-items: center;
+            z-index: 3000; transition: 1s; cursor: pointer;
         }
 
-        .gift-box {
-            font-size: 8rem;
-            cursor: pointer;
-            transition: transform 0.3s;
-            animation: wobble 1s infinite;
+        /* 2. واجهة الكلام الإيماني (تظهر عند كليك هير) */
+        #faithOverlay {
+            position: fixed;
+            top: 0; left: 0; width: 100%; height: 100%;
+            background: rgba(0, 0, 0, 0.85);
+            backdrop-filter: blur(10px);
+            display: none; flex-direction: column; justify-content: center; align-items: center;
+            z-index: 4000; padding: 30px; text-align: center;
         }
 
-        @keyframes wobble {
-            0%, 100% { transform: rotate(-5deg) scale(1); }
-            50% { transform: rotate(5deg) scale(1.1); }
+        #faithText {
+            font-family: 'Quicksand', sans-serif;
+            font-size: clamp(1.1rem, 4vw, 1.6rem);
+            line-height: 1.8;
+            max-width: 800px;
+            color: #f1f1f1;
         }
 
-        .gift-box:hover { transform: scale(1.2); }
-
-        .tap-text {
-            color: white;
-            font-family: 'Dancing Script', cursive;
-            font-size: 2rem;
-            margin-top: 20px;
+        .close-faith {
+            margin-top: 30px; padding: 10px 20px;
+            background: #fff; color: #000; border: none; border-radius: 20px; cursor: pointer;
+            font-weight: bold; font-family: 'Quicksand';
         }
 
-        /* المحتوى الرئيسي */
+        /* 3. المحتوى الرئيسي */
         .content-wrapper {
-            position: absolute;
-            top: 35%;
-            left: 50%;
-            transform: translate(-50%, -50%);
-            text-align: center;
-            z-index: 10;
-            width: 90%;
-            display: none; /* يظهر بعد فتح الهدية */
+            position: absolute; top: 35%; left: 50%; transform: translate(-50%, -50%);
+            text-align: center; z-index: 10; width: 90%; display: none;
         }
 
-        h1 {
-            font-family: 'Pacifico', cursive;
-            font-size: clamp(3rem, 10vw, 5rem);
-            text-shadow: 0 0 20px #ff0055;
+        .click-here-btn {
+            margin-top: 20px; padding: 12px 25px;
+            background: #fff; color: #ff0055; border: none; border-radius: 50px;
+            font-weight: bold; cursor: pointer; font-size: 1.1rem;
+            box-shadow: 0 0 20px rgba(255, 255, 255, 0.5);
+            animation: pulse 1.5s infinite;
         }
 
-        .love-message {
-            font-size: 1.6rem;
-            margin-top: 20px;
-            min-height: 120px;
-            font-style: italic;
-        }
-
-        .bengali-text {
-            display: block;
-            font-size: 2.2rem;
-            color: #fffb00;
-            margin-top: 15px;
-            font-weight: bold;
-            text-shadow: 0 0 10px rgba(0,0,0,0.3);
+        @keyframes pulse {
+            0% { transform: scale(1); box-shadow: 0 0 0 rgba(255,255,255,0.7); }
+            70% { transform: scale(1.05); box-shadow: 0 0 20px rgba(255,255,255,0); }
+            100% { transform: scale(1); }
         }
 
         .video-container {
-            position: absolute;
-            bottom: 30px;
-            width: 100%;
-            display: flex;
-            justify-content: center;
-            z-index: 5;
-            display: none;
+            position: absolute; bottom: 30px; width: 100%; display: flex; justify-content: center; z-index: 5; display: none;
         }
 
         .cat-video {
-            width: 220px;
-            height: 220px;
-            object-fit: cover;
-            border-radius: 50%;
-            border: 6px solid white;
-            box-shadow: 0 0 40px #ff0055;
+            width: 180px; height: 180px; object-fit: cover; border-radius: 50%;
+            border: 5px solid white; box-shadow: 0 0 30px #ff0055;
         }
 
-        .heart {
-            position: absolute;
-            animation: move linear infinite;
-            z-index: 1;
-        }
-
+        .heart { position: absolute; animation: move linear infinite; z-index: 1; }
         @keyframes move {
             0% { transform: translateY(0) rotate(0deg); opacity: 1; }
             100% { transform: translateY(-110vh) rotate(360deg); opacity: 0; }
@@ -129,16 +97,20 @@
 <body>
 
     <div id="giftOverlay" onclick="openGift()">
-        <div class="gift-box">🎁</div>
-        <div class="tap-text">Isha, click to open your gift...</div>
+        <div style="font-size: 8rem;">🎁</div>
+        <div style="font-family: 'Dancing Script'; color: white; font-size: 2rem; margin-top:20px;">Isha, open me...</div>
+    </div>
+
+    <div id="faithOverlay">
+        <div id="faithText"></div>
+        <button class="close-faith" onclick="closeFaith()">Back to our Love ❤️</button>
     </div>
 
     <div class="content-wrapper" id="mainContent">
-        <h1>Isha 💖</h1>
-        <h2 style="font-family: 'Dancing Script'; font-size: 2.2rem; color: #fff;">Happy Valentine's Day!</h2>
-        <div id="messageBox" class="love-message">
-            Waiting for you to read my heart...
-        </div>
+        <h1 style="font-family: 'Pacifico'; font-size: 4rem;">Isha 💖</h1>
+        <div id="messageBox" style="font-size: 1.5rem; margin-top: 20px; min-height: 100px;">Happy Valentine's Day!</div>
+        
+        <button class="click-here-btn" onclick="openFaith()">Click Here ✨</button>
     </div>
 
     <div class="video-container" id="videoBox">
@@ -147,75 +119,90 @@
         </video>
     </div>
 
-    <audio id="myAudio" loop>
-        <source src="love_song.mp3" type="audio/mpeg">
-    </audio>
+    <audio id="mainMusic" loop><source src="love_song.mp3" type="audio/mpeg"></audio>
+    <audio id="faithMusic" loop><source src="faith_music.mp3" type="audio/mpeg"></audio>
 
     <script>
         const messages = [
-            {en: "Happy Valentine's Day, my love!", bn: "শুভ ভালোবাসা দিবস, প্রিয়!"},
-            {en: "I love you more than words can say...", bn: "আমি তোমাকে অনেক ভালোবাসি"},
-            {en: "You are the light of my life...", bn: "তুমি আমার জীবনের আলো"},
-            {en: "Forever and always, just you and me...", bn: "চিরকাল শুধু তুমি আর আমি"},
-            {en: "Your smile is my paradise...", bn: "তোমার হাসি আমার স্বর্গ"}
+            {en: "Happy Valentine's Day, Isha!", bn: "শুভ ভালোবাসা দিবস!"},
+            {en: "You are my world...", bn: "তুমি আমার পৃথিবী"},
+            {en: "Forever with Morsi...", bn: "চিরকাল মূর্তির সাথে"}
         ];
 
-        let index = 0;
-        const audio = document.getElementById('myAudio');
+        const faithParagraph = `Trust in Allah. Do you trust him? \n\nWhatever happens in life, you know I have a Lord who cares for me. This, it seems negative, but something positive is going to come out of it. \n\nIf you come today, don't do power, and when you see it, you can smile at your back. \n\nNobody on earth has remained unknown for longer than a certain time. Allah says, we rotate the days. \n\nOne day you'll be up, one day you'll be down, one day you gain, one day you lose.`;
+
+        let msgIndex = 0;
+        const mainMusic = document.getElementById('mainMusic');
+        const faithMusic = document.getElementById('faithMusic');
         const video = document.getElementById('myVideo');
 
         function openGift() {
-            // تأثير فتح الهدية
             document.getElementById('giftOverlay').style.opacity = '0';
             setTimeout(() => {
                 document.getElementById('giftOverlay').style.display = 'none';
                 document.getElementById('mainContent').style.display = 'block';
                 document.getElementById('videoBox').style.display = 'flex';
-                
-                // تشغيل الأغنية بأقصى صوت
-                audio.volume = 1.0;
-                audio.play();
-                
-                // تشغيل الفيديو صامتاً
+                mainMusic.volume = 1.0;
+                mainMusic.play();
                 video.play();
-                
-                startMagic();
+                startGeneralMagic();
             }, 800);
         }
 
-        function startMagic() {
-            updateMessage();
-            setInterval(updateMessage, 5000);
+        function startGeneralMagic() {
+            setInterval(() => {
+                const msgBox = document.getElementById('messageBox');
+                msgBox.style.opacity = '0';
+                setTimeout(() => {
+                    msgBox.innerHTML = `${messages[msgIndex].en} <br><span style="color:#fffb00; font-size:1.8rem;">${messages[msgIndex].bn}</span>`;
+                    msgBox.style.opacity = '1';
+                    msgIndex = (msgIndex + 1) % messages.length;
+                }, 500);
+            }, 5000);
             setInterval(spawnHeart, 300);
         }
 
-        function updateMessage() {
-            const msgBox = document.getElementById('messageBox');
-            msgBox.style.opacity = '0';
-            
-            setTimeout(() => {
-                const current = messages[index];
-                msgBox.innerHTML = `${current.en} <span class="bengali-text">${current.bn}</span>`;
-                msgBox.style.opacity = '1';
-                index = (index + 1) % messages.length;
-                burstHearts();
-            }, 500);
+        // وظيفة ظهور الكلام بالتدريج
+        function typeWriter(text, element, speed) {
+            let i = 0;
+            element.innerHTML = "";
+            function type() {
+                if (i < text.length) {
+                    element.innerHTML += text.charAt(i) === "\n" ? "<br>" : text.charAt(i);
+                    i++;
+                    setTimeout(type, speed);
+                }
+            }
+            type();
+        }
+
+        function openFaith() {
+            // تبديل الموسيقى
+            mainMusic.pause();
+            faithMusic.currentTime = 0;
+            faithMusic.volume = 1.0;
+            faithMusic.play();
+
+            document.getElementById('faithOverlay').style.display = 'flex';
+            typeWriter(faithParagraph, document.getElementById('faithText'), 50);
+        }
+
+        function closeFaith() {
+            faithMusic.pause();
+            mainMusic.play();
+            document.getElementById('faithOverlay').style.display = 'none';
         }
 
         function spawnHeart() {
             const heart = document.createElement('div');
             heart.className = 'heart';
-            heart.innerHTML = ['❤️','💖','✨','🌹','🌸'][Math.floor(Math.random()*5)];
+            heart.innerHTML = '❤️';
             heart.style.left = Math.random() * 100 + 'vw';
             heart.style.bottom = '-50px';
             heart.style.fontSize = Math.random() * 20 + 20 + 'px';
             heart.style.animationDuration = Math.random() * 2 + 3 + 's';
             document.body.appendChild(heart);
             setTimeout(() => heart.remove(), 5000);
-        }
-
-        function burstHearts() {
-            for(let i=0; i<8; i++) spawnHeart();
         }
     </script>
 </body>
